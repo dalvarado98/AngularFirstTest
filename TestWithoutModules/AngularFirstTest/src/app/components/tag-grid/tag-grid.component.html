@@ -1,0 +1,21 @@
+<div>
+    <div class="input-group mb-3">
+        <ng-template #rt let-r="result" let-t="term">
+            <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+          </ng-template>
+        <input #tag (keydown.enter)="onEnterTag()" type="text" name="" class="form-control input_user" [(ngModel)]='preference' placeholder="preferences" [ngbTypeahead]="search"
+        (focus)="focus$.next($event.target.value)"
+        (click)="click$.next($event.target.value)"
+        #instance="ngbTypeahead"
+        [inputFormatter]="formatter"
+        [resultTemplate]="rt"
+        required>
+      </div>
+    <div class="container">
+        <div class="row" *ngFor="let numberRow of rowNumbers">
+            <div class="tag" *ngFor="let tag of tagsMatrix[numberRow]">
+                <span (click)="deleteTag(tag.name)" class="badge badge-pill badge-primary" >{{ tag.name }}</span>
+            </div>
+        </div>
+    </div>
+</div>

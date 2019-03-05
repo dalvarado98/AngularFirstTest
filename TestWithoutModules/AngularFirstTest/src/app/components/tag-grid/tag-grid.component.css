@@ -1,0 +1,18 @@
+.tag {
+  margin-left: 1%;
+  font-size: 1.3em;
+}
+
+.badge-primary {
+  background-color: #40676E;
+  color: #E3EECD;
+}
+
+.badge-primary:hover {
+  background-color: #dc3545;
+  cursor: pointer;
+}
+
+.badge {
+  font-weight: 200;
+}
