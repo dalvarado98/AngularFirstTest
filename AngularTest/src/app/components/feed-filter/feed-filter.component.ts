@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-feed-filter',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeedFilterComponent implements OnInit {
 
+  filterType: number;
+  @Output() filterChanged: EventEmitter<number> =   new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+    this.filterType = 1;
+  }
+
+  changedFilter(type: number) {
+    this.filterType = type;
+    console.log(this.filterType);
   }
 
 }

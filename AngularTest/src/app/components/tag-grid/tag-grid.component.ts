@@ -32,7 +32,6 @@ export class TagGridComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.loadAppTags();
     this.loadSearchTags();
     this.tags = [];
@@ -57,10 +56,9 @@ export class TagGridComponent implements OnInit {
       const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
       const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
       const inputFocus$ = this.focus$;
-
+      console.log("called");
       return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-        map(term => (term === '' ? this.appTags
-          : this.appTags.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+        map(term => this.appTags)
       );
     }
     this.formatter = (x: {name: string}) => x.name;
@@ -87,7 +85,6 @@ export class TagGridComponent implements OnInit {
       this.tagService.createUser(inputTag).subscribe(
         tagResponse => {
           this.loadAppTags();
-          this.loadSearchTags();
           this.tags.push(tagResponse.body);
           this.loadMatrixDetails();
           this.tagsChanged.emit(this.tags);

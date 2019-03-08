@@ -1,3 +1,24 @@
-<p>
-  create-post works!
-</p>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Create post</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <label>Title:</label>
+      <input type="text" class="form-control" [(ngModel)]="post.title">
+      <label>Post:</label>
+      <textarea class="form-control" rows="5" [(ngModel)]="post.text"></textarea>
+      <br />
+      <app-tag-grid [gridColumns]="3" (tagsChanged)="tagsChangedHandler($event)"></app-tag-grid>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="createPost()">Save</button>
+  </div>
+</ng-template>
+
+<div style="margin: 5%">
+  <button class="btn btn-lg btn-outline-success" (click)="open(content)">Create post</button>
+</div>
+

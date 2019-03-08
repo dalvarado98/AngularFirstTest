@@ -2,13 +2,13 @@
     <div class="card-body">
       <h5 class="card-title">Filters</h5>
         <div class="radio">
-          <label><input type="radio" name="optradio" checked>My posts</label>
+          <label><input type="radio" name="optradio" checked (click)=changedFilter(1)>My posts</label>
         </div>
         <div class="radio">
-          <label><input type="radio" name="optradio">Suggested</label>
+          <label><input type="radio" name="optradio" (click)=changedFilter(2)>Suggested</label>
         </div>
         <div class="radio">
-          <label><input type="radio" name="optradio">Liked</label>
+          <label><input type="radio" name="optradio" (click)=changedFilter(3)>Liked</label>
         </div>
     </div>
   </div>

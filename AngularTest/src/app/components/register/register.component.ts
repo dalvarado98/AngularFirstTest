@@ -10,10 +10,12 @@ import { Tag } from '../../models/Tag';
   styleUrls: ["./register.component.css"]
 })
 export class RegisterComponent implements OnInit {
+
   nickname: string;
   alertHide: boolean;
   alertText: string;
   tags: Tag[];
+
   constructor(private UserService: UserService, private router: Router) {}
 
   ngOnInit() {
@@ -35,11 +37,15 @@ export class RegisterComponent implements OnInit {
 
       this.UserService.createUser(user).subscribe(
         userResponse => {
-          localStorage.setItem(
-            "currentUser",
-            JSON.stringify(userResponse.body)
-          );
-          this.router.navigateByUrl("/");
+          console.log(userResponse);
+          this.UserService.addTagsToUser(this.tags, userResponse.body.id).subscribe(response => {
+
+            localStorage.setItem(
+              "currentUser",
+              JSON.stringify(userResponse.body)
+            );
+            this.router.navigateByUrl("/");
+          });
         },
         err => {
           this.alertText = err.message;
@@ -57,4 +63,10 @@ export class RegisterComponent implements OnInit {
     return (this.nickname === "" || this.nickname === undefined || this.nickname === null);
   }
 
+  createTags(userId) {
+    console.log(this.tags);
+    this.UserService.addTagsToUser(this.tags, userId ).subscribe(response => {
+      console.log(response);
+    });
+  }
 }
