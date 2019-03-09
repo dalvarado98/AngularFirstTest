@@ -1,3 +1,6 @@
+import { PostService } from './../../services/post.service';
+import { Comment } from './../../models/Comment';
+import { User } from './../../models/User';
 import { HttpResponse } from '@angular/common/http';
 import { LikeService } from './../../services/like.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -16,10 +19,14 @@ export class PostComponent implements OnInit {
   likeButtonClass: string;
   likeButtonState: boolean;
   like: Like;
+  newComment: Comment;
+  comments: Comment[];
 
-  constructor(private likeService: LikeService) { }
+  constructor(private likeService: LikeService, private postService: PostService) { }
 
   ngOnInit() {
+    this.newComment = new Comment();
+    this.getPostComments();
     this.checkIfIsLiked();
   }
 
@@ -78,6 +85,24 @@ export class PostComponent implements OnInit {
         this.likeButtonClass = "primary";
         this.likeButtonText = "Like";
       });
+  }
+
+  createCommnet() {
+    this.newComment.post = this.post;
+    this.newComment.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.postService.addComment(this.newComment).subscribe(response => {
+      this.newComment = response.body;
+      this.postService.addCommentToPost(this.post.postId, this.newComment).subscribe(r => {
+          this.newComment = new Comment();
+          this.getPostComments();
+      });
+    });
+  }
+
+  getPostComments() {
+    this.postService.getPostComments(this.post.postId).subscribe(response => {
+      this.comments = response;
+    });
   }
 
 }

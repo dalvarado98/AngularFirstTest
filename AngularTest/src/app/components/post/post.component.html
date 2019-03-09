@@ -1,14 +1,26 @@
 <div class="card">
     <div class="card-body">
       <h5 class="card-title">{{ post.title }}</h5>
+      <div *ngFor="let tag of post.tags">
+          <span class="badge badge-pill badge-primary" >{{ tag.name }}</span>
+      </div>
       <p class="card-text">{{ post.text }}</p>
-      <button (click)="toggleLikeButton()" type="button" class="btn btn-{{ likeButtonClass }} btn-sm md-5">{{ likeButtonText }}</button>
-      <ngb-accordion #acc="ngbAccordion">
-          <ngb-panel title="Comments">
-            <ng-template ngbPanelContent>
-              Damn
-            </ng-template>
-          </ngb-panel>
-        </ngb-accordion>
+      <button (click)="toggleLikeButton()" type="button" class="btn btn-{{ likeButtonClass }} btn-sm md-2">{{ likeButtonText }}</button>
+      <div class="mt-2">
+          <ngb-accordion #acc="ngbAccordion">
+            <ngb-panel title="Comments">
+              <ng-template ngbPanelContent>
+                <div *ngFor="let comment of comments">
+                    <app-comment [comment]="comment"></app-comment>
+                    <hr />
+                </div>
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
+      </div>
+      <div>
+      <input type="text" class="form-control mt-1" placeholder="Create comment" [(ngModel)]="newComment.text">
+      <button class="btn btn-md btn-outline-success float-right mt-1" (click)="createCommnet()">Create comment</button>
+      </div>
     </div>
   </div>

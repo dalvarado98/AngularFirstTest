@@ -13,6 +13,7 @@ import { TagGridComponent } from './components/tag-grid/tag-grid.component';
 import { PostComponent } from './components/post/post.component';
 import { FeedFilterComponent } from './components/feed-filter/feed-filter.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
     TagGridComponent,
     PostComponent,
     FeedFilterComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

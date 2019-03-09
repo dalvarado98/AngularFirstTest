@@ -18,7 +18,7 @@ export class FeedFilterComponent implements OnInit {
 
   changedFilter(type: number) {
     this.filterType = type;
-    console.log(this.filterType);
+    this.filterChanged.emit(this.filterType);
   }
 
 }

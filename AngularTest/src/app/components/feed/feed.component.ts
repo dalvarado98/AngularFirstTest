@@ -18,6 +18,7 @@ export class FeedComponent implements OnInit {
   constructor(private router: Router, private postService: PostService ) { }
 
   ngOnInit() {
+    this.filterType = 1;
     this.checkUserSession();
     this.loadPosts();
   }
@@ -35,13 +36,19 @@ export class FeedComponent implements OnInit {
 
   loadPosts() {
     var userStored = JSON.parse(localStorage.getItem('currentUser'));
-    this.postService.getPosts(userStored.id, 1).subscribe(responseTags => {
+    this.posts = [];
+    this.postService.getPosts(userStored.id, this.filterType).subscribe(responseTags => {
       this.posts = responseTags;
     });
   }
 
   postChangedHandler(newPost: boolean) {
     console.log(newPost);
+    this.loadPosts();
+  }
+
+  filterChanged(filter: number) {
+    this.filterType = filter;
     this.loadPosts();
   }
 
